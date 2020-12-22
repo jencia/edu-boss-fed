@@ -5,7 +5,7 @@
         <el-button :icon="collapseIcon" class="collapse-btn" @click="setCollapse()" />
         <el-breadcrumb separator="/">
           <el-breadcrumb-item to="/">首页</el-breadcrumb-item>
-          <el-breadcrumb-item to="/roles">角色列表</el-breadcrumb-item>
+          <el-breadcrumb-item>角色列表</el-breadcrumb-item>
         </el-breadcrumb>
       </el-row>
       <el-dropdown>

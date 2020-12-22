@@ -39,19 +39,19 @@ const routes: Array<RouteConfig> = [
         component: () => import(/* webpackChunkName: "Courses" */ '../views/Courses.vue')
       },
       {
-        path: '/Menus',
-        name: 'Menus',
-        component: () => import(/* webpackChunkName: "Menus" */ '../views/Menus.vue')
+        path: '/Menu',
+        name: 'Menu',
+        component: () => import(/* webpackChunkName: "Menu" */ '../views/Menu.vue')
       },
       {
-        path: '/Resources',
-        name: 'Resources',
-        component: () => import(/* webpackChunkName: "Resources" */ '../views/Resources.vue')
+        path: '/Resource',
+        name: 'Resource',
+        component: () => import(/* webpackChunkName: "Resource" */ '../views/Resource.vue')
       },
       {
-        path: '/Roles',
-        name: 'Roles',
-        component: () => import(/* webpackChunkName: "Roles" */ '../views/Roles.vue')
+        path: '/Role',
+        name: 'Role',
+        component: () => import(/* webpackChunkName: "Role" */ '../views/Role.vue')
       },
       {
         path: '/Users',
