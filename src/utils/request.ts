@@ -1,12 +1,34 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { Message } from 'element-ui'
+import qs from 'qs'
 import store from '@/store'
+import router from '@/router'
 
-const axiosInstance = axios.create({
-  baseURL: 'http://eduboss.lagou.com'
-})
+const axiosInstance = axios.create()
+
+function redirectLogin () {
+  router.push({
+    path: '/Login',
+    query: {
+      redirect: router.currentRoute.fullPath
+    }
+  })
+}
+
+async function refreshToken () {
+  const { user } = store.state
+
+  return await axios.create()({
+    url: '/front/user/refresh_token',
+    method: 'POST',
+    data: qs.stringify({
+      refreshtoken: user.refresh_token
+    })
+  })
+}
 
 axiosInstance.interceptors.request.use(
+  // 请求成功
   config => {
     const { user } = store.state
 
@@ -15,12 +37,17 @@ axiosInstance.interceptors.request.use(
     }
     return config
   },
+  // 请求失败
   error => {
     return Promise.reject(error)
   }
 )
+
+let refreshing = false
+let requests: (() => void)[] = []
 axiosInstance.interceptors.response.use(
-  ({ data }) => { // 状态 2xx 进入这里
+  // 状态 2xx 进入这里
+  ({ data }) => {
     // 响应成功
     if (data.success) {
       return data.content
@@ -28,7 +55,8 @@ axiosInstance.interceptors.response.use(
     Message.error(data.message)
     throw new Error(data.message)
   },
-  error => { // 状态超出 2xx 进入这里
+  // 状态超出 2xx 进入这里
+  async error => {
     if (error.response) {
       // 请求收到响应，但状态不是 2xx
       const { status } = error.response
@@ -37,7 +65,49 @@ axiosInstance.interceptors.response.use(
         Message.error('请求参数错误')
       } else if (status === 401) {
         // 授权失败
-        console.error('无权访问')
+
+        // 如果第一次登录或登录记录被清除
+        if (!store.state.user) {
+          redirectLogin()
+          return Promise.reject(error)
+        }
+
+        // 多个请求同时出现 401 时，只有第一个进行刷新 token 操作，其他等待中，并将请求存起来
+        if (refreshing) {
+          return new Promise(resolve => {
+            requests.push(() => {
+              resolve(request(error.config))
+            })
+          })
+        } else {
+          refreshing = true
+          try {
+            const { data } = await refreshToken()
+
+            // token 刷新失败进入 catch
+            if (!data.success) {
+              throw new Error('刷新 Token 失败')
+            }
+
+            // 将最新用户数据存进 vuex
+            store.commit('setUser', data.content)
+
+            // 执行存储的请求
+            requests.forEach(cb => cb())
+
+            // 执行完置空
+            requests = []
+
+            // 重新发起第一次触发 401 的请求
+            return request(error.config)
+          } catch (e) {
+            store.commit('setUser', {})
+            redirectLogin()
+            return Promise.reject(error)
+          } finally {
+            refreshing = false
+          }
+        }
       } else if (status === 403) {
         Message.error('没有权限，请联系管理员')
       } else if (status === 404) {
