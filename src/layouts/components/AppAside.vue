@@ -7,17 +7,17 @@
     <el-aside width="auto">
       <el-menu :active="currActive" :collapse="collapse" router>
         <template v-for="menu in finalMenuList">
-          <el-submenu v-if="menu.submenuList.length > 0" :key="menu.id" :index="menu.href">
+          <el-submenu v-if="menu.submenuList.length > 0" :key="menu.id" :index="menu.id">
             <template slot="title">
               <i :class="`el-icon-${menu.icon}`" />
               <span slot="title">{{ menu.title }}</span>
             </template>
-            <el-menu-item v-for="submenu in menu.submenuList" :key="submenu.id" :index="submenu.href">
+            <el-menu-item v-for="submenu in menu.submenuList" :key="submenu.id" :index="submenu.id">
               <i :class="`el-icon-${submenu.icon}`" />
               <span slot="title">{{ submenu.title }}</span>
             </el-menu-item>
           </el-submenu>
-          <el-menu-item v-else :key="menu.id" :index="menu.href">
+          <el-menu-item v-else :key="menu.id" :index="menu.id">
             <i :class="`el-icon-${menu.icon}`" />
             <span slot="title">{{ menu.title }}</span>
           </el-menu-item>
