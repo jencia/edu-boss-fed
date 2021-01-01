@@ -49,8 +49,8 @@ axiosInstance.interceptors.response.use(
   // 状态 2xx 进入这里
   ({ data }) => {
     // 响应成功
-    if (data.success) {
-      return data.content
+    if (data.success || data.code === '000000') {
+      return data.content || data.data
     }
     Message.error(data.message)
     throw new Error(data.message)
