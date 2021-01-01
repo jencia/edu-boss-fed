@@ -12,12 +12,12 @@
               <i :class="`el-icon-${menu.icon}`" />
               <span slot="title">{{ menu.title }}</span>
             </template>
-            <el-menu-item v-for="submenu in menu.submenuList" :key="submenu.id" :index="submenu.id">
+            <el-menu-item v-for="submenu in menu.submenuList" :key="submenu.id" :index="submenu.href">
               <i :class="`el-icon-${submenu.icon}`" />
               <span slot="title">{{ submenu.title }}</span>
             </el-menu-item>
           </el-submenu>
-          <el-menu-item v-else :key="menu.id" :index="menu.id">
+          <el-menu-item v-else :key="menu.id" :index="menu.href">
             <i :class="`el-icon-${menu.icon}`" />
             <span slot="title">{{ menu.title }}</span>
           </el-menu-item>
