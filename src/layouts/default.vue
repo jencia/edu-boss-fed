@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container class="default-layout">
     <app-aside />
     <el-container direction="vertical">
       <app-header />
@@ -23,3 +23,9 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.default-layout {
+  height: 100vh;
+}
+</style>
