@@ -36,10 +36,11 @@ export function getAllRole (): Promise<RoleType[]> {
 }
 
 /** 给用户分配角色 */
-export function allocateUserRoles () {
+export function allocateUserRoles (data: { userId: number, roleIdList: number[] }) {
   return request({
     method: 'POST',
-    url: '/boss/role/allocateUserRoles'
+    url: '/boss/role/allocateUserRoles',
+    data
   })
 }
 
@@ -83,5 +84,13 @@ export function getRole (id: number) {
   return request({
     method: 'GET',
     url: `/boss/role/${id}`
+  })
+}
+
+/** 查询用户角色 */
+export function getUserRole (id: number) {
+  return request({
+    method: 'GET',
+    url: `/boss/role/user/${id}`
   })
 }

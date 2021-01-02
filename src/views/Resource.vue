@@ -71,6 +71,7 @@ import {
 } from '@/services/resource'
 import { Form } from 'element-ui'
 import { delRow, saveForm } from '@/utils/operation'
+import { MeListFormDataType } from '@/components/MeListForm.vue'
 
 const defaultFormData = {
   categoryId: '',
@@ -84,12 +85,7 @@ export default Vue.extend({
   data () {
     return {
       categoryList: [] as { label: string, value: string }[],
-      conditionForm: [] as {
-        label: string,
-        field: string,
-        options?: { label: string, value: string }[],
-        placeholder?: string
-      }[],
+      conditionForm: [] as MeListFormDataType[],
       tableData: [] as ResourceType[],
       dataTotal: 0,
       loading: false,
@@ -126,6 +122,7 @@ export default Vue.extend({
         {
           label: '资源分类',
           field: 'categoryId',
+          type: 'select',
           options: this.categoryList,
           placeholder: '全部'
         }
