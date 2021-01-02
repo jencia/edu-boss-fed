@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-aside">
     <router-link to="/" class="logo" :class="{ collapse }">
       <img :src="imgLogo" alt="logo">
       <h1>Edu Boss</h1>
@@ -119,7 +119,7 @@ export default Vue.extend({
     }
   }
 }
-.el-aside {
+.app-aside {
   min-height: 100vh;
   background: #fff;
 }

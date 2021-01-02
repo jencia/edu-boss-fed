@@ -39,7 +39,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import dayjs from 'dayjs'
 
 export default Vue.extend({
   name: 'Users',
@@ -215,11 +214,6 @@ export default Vue.extend({
     },
     handleAllocateRole: (data: any) => {
       console.log(data)
-    }
-  },
-  filters: {
-    date (value: string) {
-      return dayjs(value).format('YYYY-MM-DD HH:mm:ss')
     }
   }
 })

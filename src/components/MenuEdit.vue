@@ -43,6 +43,7 @@
 import Vue from 'vue'
 import { getMenu, MenuType, getEditMenuInfo, saveOrUpdateMenu } from '@/services/menu'
 import { Form } from 'element-ui'
+import { saveForm } from '@/utils/operation'
 
 const defaultData: MenuType = {
   id: undefined,
@@ -97,32 +98,13 @@ export default Vue.extend({
       ]
     },
     async handleSubmit () {
-      const validRes = await (this.$refs.formRef as Form)
-        .validate()
-        .catch(e => e)
-
-      if (!validRes) {
-        this.$message.error('验证失败')
-        return
-      }
-
-      let loading
-      try {
-        const rs = await this.$confirm('是否提交数据', '提示')
-
-        if (rs !== 'confirm') {
-          return
-        }
-
-        loading = this.$loading({ text: '提交中...' })
-        await saveOrUpdateMenu(this.formData)
-
-        this.$message.success(this.id ? '修改成功' : '添加成功')
-        this.$router.go(-1)
-      } catch (e) {
-      } finally {
-        loading && loading.close()
-      }
+      await saveForm({
+        vueInstance: this,
+        formRef: this.$refs.formRef as Form,
+        saveRequest: () => saveOrUpdateMenu(this.formData),
+        isEditMode: !!this.formData.id
+      })
+      this.$router.go(-1)
     },
     handleReset () {
       this.formData = { ...defaultData }

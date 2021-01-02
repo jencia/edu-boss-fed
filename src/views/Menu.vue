@@ -4,7 +4,7 @@
       <el-button size="small" @click="$router.push('/addMenu')">添加菜单</el-button>
     </div>
     <el-table :data="tableData" v-loading="loading">
-      <el-table-column width="60" type="index" label="编号" />
+      <el-table-column width="60" prop="id" label="编号" />
       <el-table-column prop="name" label="菜单名称" />
       <el-table-column label="菜单级数">
         <template v-slot="{ row }">
@@ -36,6 +36,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { getAllMenu, deleteMenu } from '@/services/menu'
+import { delRow } from '@/utils/operation'
 
 export default Vue.extend({
   name: 'Menu',
@@ -57,31 +58,12 @@ export default Vue.extend({
       this.tableData = data
     },
     async handleDeleteMenu (id: number) {
-      try {
-        const rs = await this.$confirm('确认要删除该菜单', '提示')
-
-        if (rs === 'confirm') {
-          this.loading = true
-          await deleteMenu(id)
-          await this.updateMenu()
-            .finally(() => (this.loading = false))
-
-          this.$message.success('删除成功')
-        }
-      } catch (e) {}
+      delRow({
+        vueInstance: this,
+        delRequest: () => deleteMenu(id),
+        listRequest: this.updateMenu
+      })
     }
   }
 })
 </script>
-
-<style lang="scss" scoped>
-.action-col a {
-  color: #40586f;
-  &:hover {
-    color: #66798c
-  }
-  & + a {
-    margin-left: 10px;
-  }
-}
-</style>

@@ -54,3 +54,23 @@ export function getEditMenuInfo (id: number) {
     }
   })
 }
+
+/** 获取角色拥有的菜单列表 */
+export function getRoleMenus (roleId: number) {
+  return request({
+    method: 'GET',
+    url: '/boss/menu/getRoleMenus',
+    params: {
+      roleId
+    }
+  })
+}
+
+/** 给角色分配菜单 */
+export function allocateRoleMenus (data: { roleId: number, menuIdList: number[] }) {
+  return request({
+    method: 'POST',
+    url: '/boss/menu/allocateRoleMenus',
+    data: data
+  })
+}
