@@ -17,7 +17,9 @@ export async function delRow (obj: {
 
       obj.vueInstance.$message.success('删除成功')
     }
-  } catch (e) {}
+  } catch (e) {
+    throw new Error(e.message)
+  }
 }
 
 export async function saveForm (obj: {
@@ -31,7 +33,7 @@ export async function saveForm (obj: {
 
   if (!validRes) {
     obj.vueInstance.$message.error('验证失败')
-    return
+    throw new Error('验证失败')
   }
 
   let loading
@@ -41,6 +43,7 @@ export async function saveForm (obj: {
     obj.listRequest && await obj.listRequest()
     obj.vueInstance.$message.success(obj.isEditMode ? '修改成功' : '添加成功')
   } catch (e) {
+    throw new Error(e.message)
   } finally {
     loading && loading.close()
   }

@@ -62,6 +62,11 @@ const routes: Array<RouteConfig> = [
         name: 'Resource',
         component: () => import(/* webpackChunkName: "Resource" */ '../views/Resource.vue')
       },
+      {
+        path: '/resourceCategory',
+        name: 'ResourceCategory',
+        component: () => import(/* webpackChunkName: "ResourceCategory" */ '../views/ResourceCategory.vue')
+      },
 
       // 角色
       {

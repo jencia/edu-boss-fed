@@ -28,7 +28,7 @@ export interface RoleFormData {
 }
 
 /** 获取所有角色数据 */
-export function getAllMenu (): Promise<RoleType[]> {
+export function getAllRole (): Promise<RoleType[]> {
   return request({
     method: 'GET',
     url: '/boss/role/all'

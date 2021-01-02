@@ -82,7 +82,7 @@ export default Vue.extend({
       const { formData } = this.$refs.listFormRef as any
 
       this.loading = true
-      const data = await getRolePages(formData)
+      const data = await getRolePages({ size: 50, ...formData })
         .finally(() => (this.loading = false))
 
       this.tableData = data.records
@@ -95,6 +95,10 @@ export default Vue.extend({
         description: ''
       }
       this.formVisible = true
+
+      this.$nextTick(() => {
+        (this.$refs.formRef as Form).clearValidate()
+      })
     },
     handleEditRole (row: RoleType) {
       this.formTitle = '编辑角色'
@@ -126,12 +130,3 @@ export default Vue.extend({
   }
 })
 </script>
-
-<style lang="scss" scoped>
-.condition-block {
-  margin-bottom: 10px;
-  &::v-deep .el-card__body {
-    padding-bottom: 0;
-  }
-}
-</style>

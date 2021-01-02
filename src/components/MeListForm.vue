@@ -2,8 +2,20 @@
   <el-card class="condition-block">
     <el-form inline @submit.native.prevent>
       <el-form-item v-for="item in data" :key="item.field" :label="item.label">
-        <el-input size="small" v-model="formData[item.field]" v-if="!item.type" clearable />
-        <el-select v-if="item.type === 'select'" v-model="formData[item.field]" clearable>
+        <el-input
+          v-if="!item.options"
+          v-model="formData[item.field]"
+          size="small"
+          :placeholder="item.placeholder || item.label"
+          clearable
+        />
+        <el-select
+          v-else
+          v-model="formData[item.field]"
+          size="small"
+          :placeholder="item.placeholder || item.label"
+          clearable
+        >
           <el-option
             v-for="optItem in item.options"
             :key="optItem.value"
@@ -30,8 +42,8 @@ export default Vue.extend({
       type: Array as PropType<{
         label: string,
         field: string,
-        type?: '' | 'select',
-        options?: { label: string, value: string }[]
+        options?: { label: string, value: string }[],
+        placeholder?: string
       }[]>,
       required: true
     },
