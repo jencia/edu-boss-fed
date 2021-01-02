@@ -1,13 +1,5 @@
 import request from '@/utils/request'
 
-/** 获取所有菜单数据 */
-export function getAllMenu () {
-  return request({
-    method: 'GET',
-    url: '/boss/menu/getAll'
-  })
-}
-
 export interface MenuType {
   id?: number
   parentId?: number
@@ -17,6 +9,14 @@ export interface MenuType {
   orderNum?: number
   description?: string
   shown?: boolean
+}
+
+/** 获取所有菜单数据 */
+export function getAllMenu () {
+  return request({
+    method: 'GET',
+    url: '/boss/menu/getAll'
+  })
 }
 
 /** 创建或更新菜单 */
@@ -72,5 +72,13 @@ export function allocateRoleMenus (data: { roleId: number, menuIdList: number[] 
     method: 'POST',
     url: '/boss/menu/allocateRoleMenus',
     data: data
+  })
+}
+
+/** 获取所有菜单并按层级展示 */
+export function getMenuNodeList () {
+  return request({
+    method: 'GET',
+    url: '/boss/menu/getMenuNodeList'
   })
 }

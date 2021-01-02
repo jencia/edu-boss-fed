@@ -6,7 +6,7 @@ export async function delRow (obj: {
   listRequest: () => Promise<any>
 }) {
   try {
-    const rs = await obj.vueInstance.$confirm('确认要删除', '提示')
+    const rs = await obj.vueInstance.$confirm('确认要删除？', '提示')
 
     if (rs === 'confirm') {
       const loading = obj.vueInstance.$loading({ text: '删除中' })

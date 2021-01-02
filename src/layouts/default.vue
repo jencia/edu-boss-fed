@@ -27,5 +27,8 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .default-layout {
   height: 100vh;
+  .el-container {
+    min-width: 840px;
+  }
 }
 </style>
