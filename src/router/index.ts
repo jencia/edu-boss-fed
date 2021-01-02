@@ -38,6 +38,8 @@ const routes: Array<RouteConfig> = [
         name: 'Courses',
         component: () => import(/* webpackChunkName: "Courses" */ '../views/Courses.vue')
       },
+
+      // 菜单
       {
         path: '/Menu',
         name: 'Menu',
@@ -53,16 +55,32 @@ const routes: Array<RouteConfig> = [
         name: 'UpdateMenu',
         component: () => import(/* webpackChunkName: "UpdateMenu" */ '../views/UpdateMenu.vue')
       },
+
+      // 资源
       {
         path: '/Resource',
         name: 'Resource',
         component: () => import(/* webpackChunkName: "Resource" */ '../views/Resource.vue')
       },
+
+      // 角色
       {
         path: '/Role',
         name: 'Role',
         component: () => import(/* webpackChunkName: "Role" */ '../views/Role.vue')
       },
+      {
+        path: '/allocMenu',
+        name: 'AllocMenu',
+        component: () => import(/* webpackChunkName: "AllocMenu" */ '../views/AllocMenu.vue')
+      },
+      {
+        path: '/allocResource',
+        name: 'AllocResource',
+        component: () => import(/* webpackChunkName: "AllocResource" */ '../views/AllocResource.vue')
+      },
+
+      // 用户管理
       {
         path: '/Users',
         name: 'Users',
