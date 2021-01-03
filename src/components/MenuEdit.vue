@@ -1,5 +1,8 @@
 <template>
   <el-card>
+    <div slot="header">
+      {{ id ? '编辑菜单' : '添加菜单'}}
+    </div>
     <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px">
       <el-form-item label="菜单名称" prop="name" required>
         <el-input v-model="formData.name"></el-input>

@@ -23,11 +23,25 @@ const routes: Array<RouteConfig> = [
         name: 'Home',
         component: () => import(/* webpackChunkName: "home" */ '../views/Courses.vue')
       },
+
+      // 广告
       {
         path: '/Advertise',
         name: 'Advertise',
         component: () => import(/* webpackChunkName: "Advertise" */ '../views/Advertise.vue')
       },
+      {
+        path: '/addAdvertise',
+        name: 'AddAdvertise',
+        component: () => import(/* webpackChunkName: "AddAdvertise" */ '../views/AddAdvertise.vue')
+      },
+      {
+        path: '/updateAdvertise',
+        name: 'UpdateAdvertise',
+        component: () => import(/* webpackChunkName: "UpdateAdvertise" */ '../views/UpdateAdvertise.vue')
+      },
+
+      // 广告位
       {
         path: '/AdvertiseSpace',
         name: 'AdvertiseSpace',
