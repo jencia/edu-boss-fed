@@ -30,7 +30,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="广告图片">
-        <!-- <el-input v-model="formData.orderNum"></el-input> -->
+        <image-upload v-model="formData.img" />
       </el-form-item>
       <el-form-item label="广告链接" prop="link" required>
         <el-input v-model="formData.link" />
@@ -47,8 +47,9 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { getAllSpaces, AdFormData, getAdById, saveOrUpdateAd } from '@/services/ad'
 import { Form } from 'element-ui'
+import ImageUpload from '@/components/ImageUpload.vue'
+import { getAllSpaces, AdFormData, getAdById, saveOrUpdateAd } from '@/services/ad'
 import { saveForm } from '@/utils/operation'
 
 const defaultData: AdFormData = {
@@ -59,14 +60,14 @@ const defaultData: AdFormData = {
   endTime: '',
   status: 0,
   link: '',
-  text: ''
+  text: '',
+  img: ''
 }
 
 export default Vue.extend({
   name: 'AdvertiseEdit',
-  props: {
-    id: Number
-  },
+  props: { id: Number },
+  components: { ImageUpload },
   data () {
     return {
       formData: { ...defaultData },
