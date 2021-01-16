@@ -24,14 +24,17 @@ export async function delRow (obj: {
 
 export async function saveForm (obj: {
   vueInstance: any,
-  formRef: Form,
+  formRef: Form | Form[],
   saveRequest: () => Promise<void>,
   listRequest?: () => Promise<any>,
   isEditMode?: boolean
 }) {
-  const validRes = await obj.formRef.validate().catch(e => e)
+  const refs = Array.isArray(obj.formRef) ? obj.formRef : [obj.formRef]
+  const validRes = await Promise.all(
+    refs.map(ref => ref.validate().catch(e => e))
+  )
 
-  if (!validRes) {
+  if (validRes.some(v => !v)) {
     obj.vueInstance.$message.error('验证失败')
     throw new Error('验证失败')
   }

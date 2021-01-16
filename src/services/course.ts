@@ -8,40 +8,47 @@ export interface CoursesCondition {
 }
 
 export interface ActivityCourseDTO {
-  id: number
-  courseId: number
-  beginTime: string
-  endTime: string
-  amount: number
-  stock: number
+  id?: number
+  courseId?: number
+  beginTime?: string
+  endTime?: string
+  amount?: number
+  stock?: number
 }
 export interface TeacherDTO {
-  id: number
-  courseId: number
+  id?: number
+  courseId?: number
   teacherName: string
-  teacherHeadPicUrl: string
+  teacherHeadPicUrl?: string
   position: string
   description: string
 }
-export interface Course {
-  teacherDTO: TeacherDTO[]
+
+export interface CourseFormData {
+  teacherDTO: TeacherDTO
   courseName: string
   activityCourse: boolean
-  activityCourseDTO: ActivityCourseDTO[]
+  activityCourseDTO: ActivityCourseDTO | null
   brief: string
   courseDescriptionMarkDown: string
   courseImgUrl: string
   courseListImg: string
   discounts: number
   discountsTag: string
-  id: number
+  id?: number
   previewFirstField: string
   previewSecondField: string
   price: number
-  priceTag: string
+  priceTag?: string
   sales: number
   sortNum: number
+  status?: number
+}
+export interface Course extends CourseFormData {
+  id: number
+  priceTag: string
   status: number
+  courseDescription: string
 }
 
 /** 根据Id获取广告信息 */
@@ -64,7 +71,7 @@ export function getQueryCourses (data: CoursesCondition): Promise<{ records: Cou
 }
 
 /** 新增或更新课程 */
-export function saveOrUpdateCourse (data: CoursesCondition): Promise<Course[]> {
+export function saveOrUpdateCourse (data: CourseFormData): Promise<void> {
   return request({
     method: 'POST',
     url: '/boss/course/saveOrUpdateCourse',
@@ -76,7 +83,7 @@ export function saveOrUpdateCourse (data: CoursesCondition): Promise<Course[]> {
 export function getCourseById (courseId: number): Promise<Course> {
   return request({
     method: 'GET',
-    url: '/front/course/getCourseById',
+    url: '/boss/course/getCourseById',
     params: { courseId }
   })
 }
