@@ -47,10 +47,27 @@ const routes: Array<RouteConfig> = [
         name: 'AdvertiseSpace',
         component: () => import(/* webpackChunkName: "AdvertiseSpace" */ '../views/AdvertiseSpace.vue')
       },
+
+      // 课程
       {
         path: '/Courses',
         name: 'Courses',
         component: () => import(/* webpackChunkName: "Courses" */ '../views/Courses.vue')
+      },
+      {
+        path: '/courses/new',
+        name: 'CoursesNew',
+        component: () => import(/* webpackChunkName: "CoursesNew" */ '../views/CoursesNew.vue')
+      },
+      {
+        path: '/courses/:id',
+        name: 'CoursesUpdate',
+        component: () => import(/* webpackChunkName: "CoursesUpdate" */ '../views/CoursesUpdate.vue')
+      },
+      {
+        path: '/courses/:id/sections',
+        name: 'CoursesSections',
+        component: () => import(/* webpackChunkName: "CoursesSections" */ '../views/CoursesSections.vue')
       },
 
       // 菜单
