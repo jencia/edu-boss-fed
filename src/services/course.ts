@@ -150,3 +150,12 @@ export function saveOrUpdateLesson (data: any): Promise<void> {
     data
   })
 }
+
+/** 根据ID获取课时信息 */
+export function getLessonById (lessonId: number): Promise<Lesson> {
+  return request({
+    method: 'GET',
+    url: '/boss/course/lesson/getById',
+    params: { lessonId }
+  })
+}
