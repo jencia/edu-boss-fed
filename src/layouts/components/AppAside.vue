@@ -32,6 +32,27 @@ import Vue from 'vue'
 import { MenuItem } from '@/services/permission'
 import imgLogo from '@/assets/logo.png'
 
+interface finalMenuItem {
+  id: string,
+  href: string
+  icon: string
+  title: string
+  submenuList: finalMenuItem[]
+}
+function formatData (menuList: MenuItem[]): finalMenuItem[] {
+  return (menuList || [])
+    .filter(menu => menu.shown)
+    .map(menu => ({
+      id: String(menu.id),
+      href: `/${menu.href}`,
+      icon: menu.icon,
+      title: menu.name,
+      submenuList: menu.subMenuList
+        ? formatData(menu.subMenuList)
+        : []
+    }))
+}
+
 export default Vue.extend({
   name: 'AppAside',
   data () {
@@ -45,27 +66,6 @@ export default Vue.extend({
   computed: {
     collapse () { return this.$store.state.collapse },
     finalMenuList () {
-      interface finalMenuItem {
-        id: string,
-        href: string
-        icon: string
-        title: string
-        submenuList: finalMenuItem[]
-      }
-      function formatData (menuList: MenuItem[]): finalMenuItem[] {
-        return (menuList || [])
-          .filter(menu => menu.shown)
-          .map(menu => ({
-            id: String(menu.id),
-            href: menu.href,
-            icon: menu.icon,
-            title: menu.name,
-            submenuList: menu.subMenuList
-              ? formatData(menu.subMenuList)
-              : []
-          }))
-      }
-
       return formatData(this.$store.state.menuList)
     }
   },
