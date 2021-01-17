@@ -17,7 +17,7 @@ export default Vue.extend({
   },
   created () {
     if (!this.id) {
-      this.$router.replace('/Menu')
+      this.$router.replace('/Courses')
     }
   }
 })

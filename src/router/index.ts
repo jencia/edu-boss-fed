@@ -69,6 +69,11 @@ const routes: Array<RouteConfig> = [
         name: 'CoursesSections',
         component: () => import(/* webpackChunkName: "CoursesSections" */ '../views/CoursesSections.vue')
       },
+      {
+        path: '/courses/:id/video',
+        name: 'CoursesVideo',
+        component: () => import(/* webpackChunkName: "CoursesVideo" */ '../views/CoursesVideo.vue')
+      },
 
       // 菜单
       {

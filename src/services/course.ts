@@ -51,6 +51,33 @@ export interface Course extends CourseFormData {
   courseDescription: string
 }
 
+export interface Lesson {
+  courseId: number
+  createTime: string
+  duration: string
+  durationNum: number
+  id: number
+  isDel: boolean
+  isFree: boolean
+  orderNum: number
+  sectionId: number
+  status: number
+  theme: string
+  updateTime: string
+}
+export interface Section {
+  courseId: number
+  createTime: string
+  description: string
+  id: number
+  isDe: boolean
+  lessonDTOS: Lesson[]
+  orderNum: number
+  sectionName: string
+  status: number
+  updateTime: string
+}
+
 /** 根据Id获取广告信息 */
 export function upload (data: FormData, onUploadProgress?: (e: any) => void) {
   return request({
@@ -88,11 +115,38 @@ export function getCourseById (courseId: number): Promise<Course> {
   })
 }
 
-/** 获取课程详情 */
+/** 改变课程上架状态 */
 export function changeState (params: { courseId: number, status: number }): Promise<void> {
   return request({
     method: 'GET',
     url: '/boss/course/changeState',
     params
+  })
+}
+
+/** 获取阶段和课时数据 */
+export function getSectionAndLesson (courseId: number): Promise<Section[]> {
+  return request({
+    method: 'GET',
+    url: '/boss/course/section/getSectionAndLesson',
+    params: { courseId }
+  })
+}
+
+/** 更新阶段信息 */
+export function saveOrUpdateSection (data: any): Promise<void> {
+  return request({
+    method: 'POST',
+    url: '/boss/course/section/saveOrUpdateSection',
+    data
+  })
+}
+
+/** 更新课时信息 */
+export function saveOrUpdateLesson (data: any): Promise<void> {
+  return request({
+    method: 'POST',
+    url: '/boss/course/lesson/saveOrUpdate',
+    data
   })
 }
